@@ -1,0 +1,266 @@
+/* بيانات تفاصيل التدقيق حسب الـ id (استبدلها بـ API لاحقاً) */
+
+const baseEntries = [
+  {
+    id: 1,
+    date: "2023-10-24",
+    entryNumber: "JE/2023/00124",
+    description: "فاتورة مبيعات رقم 4...",
+    journal: "المبيعات",
+    account: "الحلول التقنية المحدودة",
+    total: "12,450.00",
+    status: "matched",
+    checked: false,
+  },
+  {
+    id: 2,
+    date: "2023-10-23",
+    entryNumber: "JE/2023/00123",
+    description: "صرف رواتب شهر أكتو...",
+    journal: "البنك",
+    account: "الراتب الأساسي",
+    total: "3252",
+    status: "matched",
+    checked: true,
+  },
+  {
+    id: 3,
+    date: "2023-10-22",
+    entryNumber: "JE/2023/00122",
+    description: "تسوية مصروفات نثري...",
+    journal: "الصندوق",
+    account: "مصاريف عامة",
+    total: "46436",
+    status: "unmatched",
+    checked: true,
+  },
+  {
+    id: 4,
+    date: "2023-10-24",
+    entryNumber: "JE/2023/00124",
+    description: "فاتورة مبيعات رقم 4...",
+    journal: "المبيعات",
+    account: "الحلول التقنية المحدودة",
+    total: "12,450.00",
+    status: "matched",
+    checked: false,
+  },
+  {
+    id: 5,
+    date: "2023-10-23",
+    entryNumber: "JE/2023/00123",
+    description: "صرف رواتب شهر أكتو...",
+    journal: "البنك",
+    account: "الراتب الأساسي",
+    total: "3252",
+    status: "unmatched",
+    checked: false,
+  },
+  {
+    id: 6,
+    date: "2023-10-22",
+    entryNumber: "JE/2023/00122",
+    description: "تسوية مصروفات نثري...",
+    journal: "الصندوق",
+    account: "مصاريف عامة",
+    total: "46436",
+    status: "matched",
+    checked: false,
+  },
+];
+
+const baseRevision = [
+  {
+    id: "REV-1",
+    title: "قيد غير متوازن",
+    category: "الحسابات الختامية",
+    timeAgo: "منذ 20 دقيقة",
+    entryNumber: "JE/2024/00123",
+    amount: "1,245,600",
+    currency: "ر.س",
+    iconType: "alert",
+  },
+  {
+    id: "REV-2",
+    title: "قيد بدون مستند مؤيد",
+    category: "مصاريف عامة",
+    timeAgo: "منذ 3 ساعات",
+    entryNumber: "JE/2023/00122",
+    amount: "1,245,600",
+    currency: "ر.س",
+    iconType: "doc",
+  },
+  {
+    id: "REV-3",
+    title: "خطأ في التصنيف المحاسبي",
+    category: "مصاريف عامة",
+    timeAgo: "منذ 5 ساعات",
+    entryNumber: "JE/2023/00122",
+    amount: "1,245,600",
+    currency: "ر.س",
+    iconType: "book",
+  },
+  {
+    id: "REV-4",
+    title: "قيد مكرر",
+    category: "مصاريف عامة",
+    timeAgo: "منذ 5 ساعات",
+    entryNumber: "JE/2023/00122",
+    amount: "1,245,600",
+    currency: "ر.س",
+    iconType: "copy",
+  },
+  {
+    id: "REV-5",
+    title: "في انتظار توضيح",
+    category: "مصاريف عامة",
+    timeAgo: "منذ 5 ساعات",
+    entryNumber: "JE/2023/00122",
+    amount: "1,245,600",
+    currency: "ر.س",
+    iconType: "loader",
+  },
+];
+
+const baseNotes = [
+  {
+    id: "NOTE-1",
+    content:
+      "تم رصد عدم تطابق في الأرصدة الافتتاحية مقارنة بميزان المراجعة للعام السابق.",
+    timeAgo: "منذ 20 دقيقة",
+  },
+  {
+    id: "NOTE-2",
+    content: "وُجدت مستندات غير معتمدة من الإدارة المختصة لتأكيد صحة الصرف.",
+    timeAgo: "منذ 20 دقيقة",
+  },
+  {
+    id: "NOTE-3",
+    content: "توجد قيود يومية مرحلة دون وجود مستندات مؤيدة أو فواتير داعمة.",
+    timeAgo: "منذ 20 دقيقة",
+  },
+  {
+    id: "NOTE-4",
+    content:
+      "يلزم إجراء جرد فعلي للمخزون أو الأصول الثابتة لمطابقتها مع الدفاتر المحاسبية.",
+    timeAgo: "منذ 20 دقيقة",
+  },
+  {
+    id: "NOTE-5",
+    content: "تم اكتشاف فروقات في التسوية البنكية لم يتم تسويتها في حينه.",
+    timeAgo: "منذ 20 دقيقة",
+  },
+];
+
+export const AUDIT_DETAILS_MAP = {
+  "AUD-2024-01": {
+    id: "AUD-2024-01",
+    title: "تدقيق الربع الثالث 2024",
+    dateRange: "01/07/2024 - 30/09/2024",
+    progress: 69,
+    reviewedCount: 850,
+    totalCount: 1240,
+    isClosed: false,
+    stats: {
+      totalDebit: "2,180,400",
+      totalCredit: "2,180,400",
+      pendingEntries: 8,
+      totalEntries: "1,240",
+    },
+    entries: baseEntries,
+    revisionItems: baseRevision,
+    notes: baseNotes,
+  },
+  "AUD-2023-02": {
+    id: "AUD-2023-02",
+    title: "مراجعة القوائم المالية 2023",
+    dateRange: "01/01/2024 - 15/03/2024",
+    progress: 100,
+    reviewedCount: 1240,
+    totalCount: 1240,
+    isClosed: true,
+    stats: {
+      totalDebit: "4,520,000",
+      totalCredit: "4,520,000",
+      pendingEntries: 0,
+      totalEntries: "1,240",
+    },
+    entries: baseEntries.map((row, i) => ({
+      ...row,
+      status: "matched",
+      checked: i % 2 === 0,
+    })),
+    revisionItems: baseRevision.slice(0, 2),
+    notes: baseNotes.slice(0, 3),
+  },
+  "AUD-2024-03": {
+    id: "AUD-2024-03",
+    title: "تدقيق الزكاة والضريبة Q2",
+    dateRange: "01/04/2024 - 30/06/2024",
+    progress: 24,
+    reviewedCount: 120,
+    totalCount: 500,
+    isClosed: false,
+    stats: {
+      totalDebit: "890,250",
+      totalCredit: "890,250",
+      pendingEntries: 12,
+      totalEntries: "500",
+    },
+    entries: baseEntries.map((row, i) => ({
+      ...row,
+      status: i % 2 === 0 ? "unmatched" : "matched",
+    })),
+    revisionItems: baseRevision,
+    notes: [
+      {
+        id: "NOTE-Z1",
+        content: "مراجعة إقرارات الزكاة تحتاج مستندات إضافية من المالية.",
+        timeAgo: "منذ ساعة",
+      },
+      ...baseNotes.slice(0, 3),
+    ],
+  },
+  "AUD-2023-04": {
+    id: "AUD-2023-04",
+    title: "مراجعة القوائم المالية 2023",
+    dateRange: "01/01/2024 - 15/03/2024",
+    progress: 100,
+    reviewedCount: 1240,
+    totalCount: 1240,
+    isClosed: true,
+    stats: {
+      totalDebit: "3,100,800",
+      totalCredit: "3,100,800",
+      pendingEntries: 1,
+      totalEntries: "1,240",
+    },
+    entries: baseEntries,
+    revisionItems: baseRevision.slice(1, 4),
+    notes: baseNotes,
+  },
+};
+
+export const DEFAULT_AUDIT_DETAIL = {
+  id: "AUD-DEFAULT",
+  title: "تدقيق الربع الثاني - 2024",
+  dateRange: "01/04/2024 - 30/06/2024",
+  progress: 87,
+  reviewedCount: 35,
+  totalCount: 40,
+  isClosed: false,
+  stats: {
+    totalDebit: "1,245,600",
+    totalCredit: "1,245,600",
+    pendingEntries: 5,
+    totalEntries: "14,203",
+  },
+  entries: baseEntries,
+  revisionItems: baseRevision,
+  notes: baseNotes,
+};
+
+export function getAuditDetail(id) {
+  if (!id) return DEFAULT_AUDIT_DETAIL;
+  return AUDIT_DETAILS_MAP[id] || { ...DEFAULT_AUDIT_DETAIL, id };
+}
