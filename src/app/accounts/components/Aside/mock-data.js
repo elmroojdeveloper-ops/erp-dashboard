@@ -1,4 +1,10 @@
-import { FiFile, FiSettings, FiShoppingCart, FiUsers } from "react-icons/fi";
+import {
+  FiFile,
+  FiFileText,
+  FiSettings,
+  FiShoppingCart,
+  FiUsers,
+} from "react-icons/fi";
 import {
   HiOutlineBuildingOffice2,
   HiOutlineClipboardDocumentCheck,
@@ -6,11 +12,17 @@ import {
   HiOutlineTruck,
 } from "react-icons/hi2";
 import { IoCalculatorOutline } from "react-icons/io5";
-import { LuLayoutDashboard, LuRocket } from "react-icons/lu";
+import {
+  LuClipboardList,
+  LuLayoutDashboard,
+  LuPackageCheck,
+  LuRocket,
+} from "react-icons/lu";
 import {
   MdOutlineAssessment,
   MdOutlineDiscount,
   MdOutlinePendingActions,
+  MdOutlineRequestQuote,
 } from "react-icons/md";
 
 export const navItems = [
@@ -85,9 +97,46 @@ export const navItems = [
   {
     id: "purchases",
     label: "المشتريات",
-    href: "#",
+    href: "/accounts/Purches",
     Icon: FiShoppingCart,
-    children: [],
+    children: [
+      {
+        id: "purchase-requests",
+        label: "طلب شراء",
+        href: "/accounts/Purches",
+        Icon: LuClipboardList,
+      },
+      {
+        id: "quote-requests",
+        label: "طلب عرض سعر",
+        href: "/accounts/Purches/quote-requests",
+        Icon: MdOutlineRequestQuote,
+      },
+      {
+        id: "purchase-orders",
+        label: "اجراء الشراء",
+        href: "/accounts/Purches/orders",
+        Icon: FiShoppingCart,
+      },
+      {
+        id: "goods-receipts",
+        label: "اذن الاستلام",
+        href: "/accounts/Purches/receipts",
+        Icon: LuPackageCheck,
+      },
+      {
+        id: "purchase-invoices",
+        label: "فاتورة الشراء",
+        href: "/accounts/Purches/invoices",
+        Icon: FiFileText,
+      },
+      {
+        id: "purchases-settings",
+        label: "الإعدادات",
+        href: "/accounts/Purches/settings",
+        Icon: FiSettings,
+      },
+    ],
   },
   {
     id: "customers",
@@ -119,6 +168,15 @@ export const navItems = [
   },
 ];
 
+const PURCHASE_REQUEST_RESERVED = new Set([
+  "Add",
+  "quote-requests",
+  "orders",
+  "receipts",
+  "invoices",
+  "settings",
+]);
+
 export function isRouteActive(pathname, href) {
   if (!href || href === "#") return false;
   if (href === "/accounts") return pathname === "/accounts";
@@ -140,6 +198,13 @@ export function isRouteActive(pathname, href) {
   }
   if (href === "/accounts/DiscountNotifications") {
     return pathname === href || pathname.startsWith(`${href}/`);
+  }
+  if (href === "/accounts/Purches") {
+    if (pathname === "/accounts/Purches") return true;
+    if (pathname.startsWith("/accounts/Purches/Add")) return true;
+    const rest = pathname.replace("/accounts/Purches/", "");
+    if (!rest || rest.includes("/")) return false;
+    return !PURCHASE_REQUEST_RESERVED.has(rest);
   }
   return pathname === href || pathname.startsWith(`${href}/`);
 }
