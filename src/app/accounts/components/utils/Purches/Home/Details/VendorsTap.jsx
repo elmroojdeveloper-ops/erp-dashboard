@@ -158,14 +158,7 @@ const VendorsTap = () => {
                   </td>
                   <td className="px-4 py-3.5">
                     <div className="flex items-center justify-center gap-1">
-                      <button
-                        type="button"
-                        className="flex size-8 items-center justify-center rounded-lg text-muted transition hover:bg-surface hover:text-deep"
-                        aria-label="المزيد"
-                      >
-                        <FiMoreVertical className="size-4" />
-                      </button>
-                      <button
+                         <button
                         type="button"
                         className="flex size-8 items-center justify-center rounded-lg text-primary transition hover:bg-surface"
                         aria-label={`عرض ${row.number}`}
@@ -179,6 +172,14 @@ const VendorsTap = () => {
                       >
                         <FiLink className="size-4" />
                       </button>
+                      <button
+                        type="button"
+                        className="flex size-8 items-center justify-center rounded-lg text-muted transition hover:bg-surface hover:text-deep"
+                        aria-label="المزيد"
+                      >
+                        <FiMoreVertical className="size-4" />
+                      </button>
+                     
                     </div>
                   </td>
                 </tr>
