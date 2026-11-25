@@ -15,7 +15,7 @@ const VendorQuotes = () => {
         onCompare={() =>
           router.push("/accounts/Purches/quote-requests/1/compare")
         }
-        onCreate={() => router.push("/accounts/Purches/quote-requests/AddNew")}
+        onCreate={() => router.push("/accounts/Purches/vendor-quotes/Add")}
       />
       <Cards />
       <VendorsTap />
