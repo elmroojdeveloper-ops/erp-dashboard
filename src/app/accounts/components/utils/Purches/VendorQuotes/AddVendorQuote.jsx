@@ -149,7 +149,7 @@ const AddVendorQuote = () => {
   return (
     <div
       dir="rtl"
-      className="min-h-screen bg-[#f4f7f9] text-[#1e293b] font-sans select-none"
+      className="min-h-screen  text-[#1e293b] font-sans select-none"
       style={{
         fontFamily: "'Cairo', 'Tajawal', system-ui, -apple-system, sans-serif",
       }}
@@ -181,7 +181,7 @@ const AddVendorQuote = () => {
           );
 
           return (
-            <Form noValidate className="mx-auto max-w-[1200px] px-4 py-4 sm:px-6 space-y-4 pb-10">
+            <Form noValidate className="mx-auto  px-4 py-4 sm:px-6 space-y-4 pb-10">
               {/* TOP PAGE HEADER */}
               <header className="flex flex-wrap items-center justify-between gap-3">
                 <div className="flex flex-wrap items-center gap-2.5">

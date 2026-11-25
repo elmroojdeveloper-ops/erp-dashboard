@@ -12,9 +12,7 @@ const VendorQuotes = () => {
     <div className="flex flex-col gap-4 lg:gap-6">
       <Header
         compareCount={3}
-        onCompare={() =>
-          router.push("/accounts/Purches/quote-requests/1/compare")
-        }
+        onCompare={() => router.push("/accounts/Purches/comparisons")}
         onCreate={() => router.push("/accounts/Purches/vendor-quotes/Add")}
       />
       <Cards />

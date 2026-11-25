@@ -49,10 +49,20 @@ const BalancesContent = () => {
   }
 
   return (
-    <div>
-      
-    </div>
-  )
+    <BalanceSetting
+      initialFiscalYear={fiscalYear}
+      initialOpeningDate={openingDate}
+      onContinue={({ fiscalYear: year, openingDate: date }) => {
+        router.push(
+          `/accounts/opening-balances?${buildQuery({
+            year,
+            date,
+            step: "types",
+          })}`
+        );
+      }}
+    />
+  );
 }
 
 export default function Balances() {
