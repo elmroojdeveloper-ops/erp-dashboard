@@ -113,8 +113,14 @@ export const navItems = [
         Icon: MdOutlineRequestQuote,
       },
       {
+        id: "vendor-quotes",
+        label: "عروض أسعار الموردين",
+        href: "/accounts/Purches/vendor-quotes",
+        Icon: HiOutlineDocumentMagnifyingGlass,
+      },
+      {
         id: "purchase-orders",
-        label: "اجراء الشراء",
+        label: "أوامر الشراء",
         href: "/accounts/Purches/orders",
         Icon: FiShoppingCart,
       },
@@ -171,6 +177,7 @@ export const navItems = [
 const PURCHASE_REQUEST_RESERVED = new Set([
   "Add",
   "quote-requests",
+  "vendor-quotes",
   "orders",
   "receipts",
   "invoices",

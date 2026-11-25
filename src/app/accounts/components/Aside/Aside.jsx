@@ -52,8 +52,8 @@ export function Aside({ mobileOpen = false, onClose }) {
 
   return (
     <aside
-      className={`fixed inset-y-2 right-2 z-50 flex h-[calc(100vh-1rem)] w-[min(255px,85vw)] flex-col overflow-hidden rounded-[20px] bg-white shadow-card transition-transform duration-300 lg:static lg:inset-auto lg:z-auto lg:h-full lg:shrink-0 ${
-        collapsed ? "lg:w-[88px]" : "lg:w-[255px]"
+      className={`fixed inset-y-2 right-2 z-50 flex h-[calc(100dvh-1rem)] w-[min(255px,85vw)] flex-col overflow-hidden rounded-[20px] bg-white shadow-card transition-transform duration-300 lg:sticky lg:top-4 lg:z-auto lg:h-[calc(100dvh-2rem)] lg:max-h-[calc(100dvh-2rem)] lg:shrink-0 lg:self-start ${
+        collapsed ? "lg:w-[88px]" : "lg:w-[270px]"
       } ${mobileOpen ? "translate-x-0" : "translate-x-[110%] lg:translate-x-0"}`}
     >
       <div className="flex items-center gap-3 border-b border-surface px-4 py-6 lg:justify-center lg:py-8">

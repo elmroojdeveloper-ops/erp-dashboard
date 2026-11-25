@@ -33,6 +33,44 @@ export const quoteStatusLabels = {
   awaiting: "بالانتظار الرد",
 };
 
+export const quoteFilterStatuses = [
+  { value: "all", label: "جميع الحالات" },
+  { value: "selected", label: "مختار" },
+  { value: "awaiting", label: "بالانتظار الرد" },
+  { value: "expired", label: "منتهي الصلاحية" },
+  { value: "rejected", label: "مرفوض" },
+];
+
+export const quoteRequestsCards = [
+  {
+    id: "requested",
+    title: "تم الطلب",
+    value: "24",
+    featured: true,
+  },
+  {
+    id: "received",
+    title: "تم الاستلام",
+    value: "223",
+    featured: false,
+  },
+  {
+    id: "expiring",
+    title: "أوشكت على الانتهاء",
+    value: "5",
+    featured: false,
+  },
+  {
+    id: "rejected",
+    title: "مرفوضة ومغلقة",
+    value: "15",
+    featured: false,
+    danger: true,
+  },
+];
+
+export const quoteRequestsTotal = 48;
+
 /** صفوف تاب طلبات عروض الأسعار */
 export const quoteRequestRows = [
   {
@@ -146,8 +184,6 @@ export const quoteRequestRows = [
     status: "selected",
   },
 ];
-
-export const quoteRequestsTotal = 48;
 
 /** تفاصيل كاملة لصفحة [id] — بتكمل بيانات الصف لو لقيته */
 export function getPurchaseRequestDetail(id) {
@@ -294,119 +330,134 @@ export const purchaseRequestRows = [
   },
 ];
 
-export const vendorQuoteStatusStyles = {
-  comparison: "bg-[#E8F4FC] text-[#1B7398]",
-  pending: "bg-[#F1F5F9] text-[#475569]",
-  rejected: "bg-[#FDECEC] text-[#C62828]",
-};
 
-export const vendorQuoteStatusLabels = {
-  comparison: "مختار للمقارنة",
-  pending: "بانتظار الاعتماد",
-  rejected: "مرفوض",
-};
 
-/** صفوف تاب عروض أسعار الموردين */
-export const vendorQuoteRows = [
+/** صفوف تاب عروض أسعار الموردين (مطابقة للديزاين) */
+const vendorQuoteBaseRows = [
   {
-    id: "1",
+    id: "qt-00124",
     number: "QT-2024-00124",
-    vendor: "شركة المدى المتقدمة",
-    rfq: "RFQ-2024-0156",
-    submittedAt: "18 أكتوبر 2024",
+    validity: { text: "صالح حتى 18 نوفمبر 2024", tone: "muted" },
+    vendor: "شركة مدار الشبكات للاتصالات",
+    vendorMeta: "س.ت: 1010398421",
+    vendorDot: true,
+    source: {
+      type: "rfq",
+      label: "RFQ-2024-0156",
+      note: "مرتبط بمناقصة رسمية",
+    },
+    date: "18 أكتوبر 2024",
+    time: "10:45 ص",
     costCenter: "تكنولوجيا المعلومات",
     costCenterCode: "CC-001",
-    status: "comparison",
+    status: "compare",
     amount: "185,400.00",
-    taxNote: "شامل الضريبة",
+    amountNote: "ر.س • ضريبة 15% مشمولة",
+    amountTone: "primary",
   },
   {
-    id: "2",
-    number: "QT-2024-00123",
-    vendor: "مؤسسة النور للتوريد",
-    rfq: "RFQ-2024-0155",
-    submittedAt: "17 أكتوبر 2024",
-    costCenter: "قسم التسويق",
-    costCenterCode: "CC-014",
-    status: "pending",
-    amount: "142,750.00",
-    taxNote: "شامل الضريبة",
+    id: "qt-00892",
+    number: "QT-2024-00892",
+    validity: { text: "صالح حتى 25 نوفمبر 2024", tone: "muted" },
+    vendor: "شركة النخبة للتوريدات الفنية",
+    vendorMeta: "س.ت: 1010884920",
+    vendorDot: false,
+    source: {
+      type: "rfq",
+      label: "RFQ-2024-0156",
+      note: "مرتبط بمناقصة رسمية",
+    },
+    date: "19 أكتوبر 2024",
+    time: "02:15 م",
+    costCenter: "تكنولوجيا المعلومات",
+    costCenterCode: "CC-001",
+    status: "compare",
+    amount: "192,850.00",
+    amountNote: "ر.س • ضريبة 15% مشمولة",
+    amountTone: "primary",
   },
   {
-    id: "3",
-    number: "QT-2024-00122",
-    vendor: "شركة الأفق التجارية",
-    rfq: "RFQ-2024-0154",
-    submittedAt: "16 أكتوبر 2024",
-    costCenter: "قسم العمليات",
-    costCenterCode: "CC-008",
-    status: "rejected",
-    amount: "98,200.00",
-    taxNote: "شامل الضريبة",
+    id: "pq-0891-a",
+    number: "PQ-2024-0891",
+    validity: { text: "صالح حتى 05 نوفمبر 2024", tone: "muted" },
+    vendor: "شركة مدار الشبكات للاتصالات",
+    vendorMeta: "شراء قطع غيار فورية",
+    vendorDot: true,
+    source: {
+      type: "exception",
+      label: "استثنائي (RFQ خارج)",
+      note: "طلب عاجل لتفادي توقف الشبكة",
+    },
+    date: "20 أكتوبر 2024",
+    time: "09:10 ص",
+    costCenter: "تكنولوجيا المعلومات",
+    costCenterCode: "CC-001",
+    status: "received",
+    amount: "11,672.50",
+    amountNote: "ر.س • تسليم فوري (مستودع الرياض)",
+    amountTone: "default",
   },
   {
-    id: "4",
-    number: "QT-2024-00121",
-    vendor: "مجموعة الخليج للتوريد",
-    rfq: "RFQ-2024-0153",
-    submittedAt: "15 أكتوبر 2024",
-    costCenter: "الموارد البشرية",
+    id: "pq-0891-b",
+    number: "PQ-2024-0891",
+    validity: { text: "صالح حتى 05 نوفمبر 2024", tone: "muted" },
+    vendor: "مؤسسة حلول الإمداد والتقنية",
+    vendorMeta: "س.ت: 1010665412",
+    vendorDot: false,
+    source: {
+      type: "rfq",
+      label: "RFQ-2024-0142",
+      note: "PO-901 أمر شراء",
+    },
+    date: "14 أكتوبر 2024",
+    time: "11:30 ص",
+    costCenter: "إدارة العمليات",
+    costCenterCode: "CC-004",
+    status: "winner",
+    amount: "64,200.00",
+    amountNote: "ر.س • أفضل تكلفة فنية",
+    amountTone: "success",
+  },
+  {
+    id: "pq-0710",
+    number: "PQ-2024-0710",
+    validity: { text: "مستبعد", tone: "danger" },
+    vendor: "شركة التميز للتجهيزات المتطورة",
+    vendorMeta: "توريد شاشات عرض تفاعلية",
+    vendorDot: false,
+    source: {
+      type: "market",
+      label: "استثنائي",
+      note: "استكشاف أسعار السوق",
+    },
+    date: "10 أكتوبر 2024",
+    time: "04:40 م",
+    costCenter: "التسويق والفعاليات",
     costCenterCode: "CC-003",
-    status: "comparison",
-    amount: "210,000.00",
-    taxNote: "شامل الضريبة",
-  },
-  {
-    id: "5",
-    number: "QT-2024-00120",
-    vendor: "شركة التقنية الذكية",
-    rfq: "RFQ-2024-0152",
-    submittedAt: "14 أكتوبر 2024",
-    costCenter: "تكنولوجيا المعلومات",
-    costCenterCode: "CC-001",
-    status: "pending",
-    amount: "76,500.00",
-    taxNote: "شامل الضريبة",
-  },
-  {
-    id: "6",
-    number: "QT-2024-00119",
-    vendor: "مؤسسة البناء الحديث",
-    rfq: "RFQ-2024-0151",
-    submittedAt: "13 أكتوبر 2024",
-    costCenter: "قسم المالية",
-    costCenterCode: "CC-005",
     status: "rejected",
-    amount: "55,800.00",
-    taxNote: "شامل الضريبة",
-  },
-  {
-    id: "7",
-    number: "QT-2024-00118",
-    vendor: "شركة المدى المتقدمة",
-    rfq: "RFQ-2024-0150",
-    submittedAt: "12 أكتوبر 2024",
-    costCenter: "قسم التسويق",
-    costCenterCode: "CC-014",
-    status: "comparison",
-    amount: "163,900.00",
-    taxNote: "شامل الضريبة",
-  },
-  {
-    id: "8",
-    number: "QT-2024-00117",
-    vendor: "مؤسسة النور للتوريد",
-    rfq: "RFQ-2024-0149",
-    submittedAt: "11 أكتوبر 2024",
-    costCenter: "تكنولوجيا المعلومات",
-    costCenterCode: "CC-001",
-    status: "pending",
-    amount: "120,300.00",
-    taxNote: "شامل الضريبة",
+    statusLabel: "تم الرفض (تجاوز الميزانية)",
+    amount: "88,000.00",
+    amountNote: "ر.س • أعلى من الميزانية المحددة",
+    amountTone: "danger",
   },
 ];
 
-export const vendorQuotesTotal = 30;
+export const vendorQuotesTotal = 24;
+
+// أول 5 صفوف مطابقة للديزاين بالظبط، والباقي تكرار عشان الترقيم (24 عرض) يشتغل
+export const vendorQuoteRows = Array.from(
+  { length: vendorQuotesTotal },
+  (_, i) => {
+    const base = vendorQuoteBaseRows[i % vendorQuoteBaseRows.length];
+    return i < vendorQuoteBaseRows.length
+      ? base
+      : { ...base, id: `${base.id}-${i + 1}` };
+  }
+);
+
+/** صفوف تاب عروض أسعار الموردين */
+
+
 
 export const purchaseOrderStatusStyles = {
   pending: "bg-[#FFF3E0] text-[#E65100]",
@@ -515,6 +566,142 @@ export const purchaseOrderRows = [
 ];
 
 export const purchaseOrdersTotal = 30;
+
+export const receiptStatusStyles = {
+  matched: "bg-[#E6F4EA] text-[#2E7D32]",
+  partial: "bg-[#FFF3E0] text-[#E65100]",
+  pending: "bg-[#E8F4FC] text-[#1B7398]",
+  mismatch: "bg-[#FDECEC] text-[#C62828]",
+};
+
+export const receiptStatusLabels = {
+  matched: "مطابق بالكامل",
+  partial: "استلام جزئي",
+  pending: "بانتظار الفحص",
+  mismatch: "فروقات",
+};
+
+/** صفوف أذون الاستلام */
+export const goodsReceiptRows = [
+  {
+    id: "1",
+    number: "GRN-2024-0188",
+    poNumber: "PO-2024-0231",
+    vendor: "شركة مدار الشبكات للاتصالات",
+    warehouse: "مستودع السلي المركزي",
+    receivedAt: "02-11-2024",
+    status: "matched",
+    itemsCount: 4,
+    matchedCount: 4,
+    amount: "15,420.00",
+  },
+  {
+    id: "2",
+    number: "GRN-2024-0187",
+    poNumber: "PO-2024-0230",
+    vendor: "شركة التقنية المتقدمة",
+    warehouse: "مستودع جدة",
+    receivedAt: "01-11-2024",
+    status: "partial",
+    itemsCount: 6,
+    matchedCount: 4,
+    amount: "12,100.00",
+  },
+  {
+    id: "3",
+    number: "GRN-2024-0186",
+    poNumber: "PO-2024-0229",
+    vendor: "مؤسسة الحلول الرقمية الذكية",
+    warehouse: "مستودع السلي المركزي",
+    receivedAt: "30-10-2024",
+    status: "pending",
+    itemsCount: 3,
+    matchedCount: 0,
+    amount: "8,750.00",
+  },
+  {
+    id: "4",
+    number: "GRN-2024-0185",
+    poNumber: "PO-2024-0228",
+    vendor: "مجموعة الخليج للتوريد",
+    warehouse: "مستودع الدمام",
+    receivedAt: "28-10-2024",
+    status: "mismatch",
+    itemsCount: 5,
+    matchedCount: 3,
+    amount: "9,980.00",
+  },
+  {
+    id: "5",
+    number: "GRN-2024-0184",
+    poNumber: "PO-2024-0227",
+    vendor: "شركة التقنية الذكية",
+    warehouse: "مستودع السلي المركزي",
+    receivedAt: "26-10-2024",
+    status: "matched",
+    itemsCount: 2,
+    matchedCount: 2,
+    amount: "6,400.00",
+  },
+  {
+    id: "6",
+    number: "GRN-2024-0183",
+    poNumber: "PO-2024-0226",
+    vendor: "مؤسسة البناء الحديث",
+    warehouse: "مستودع مكة",
+    receivedAt: "22-10-2024",
+    status: "matched",
+    itemsCount: 8,
+    matchedCount: 8,
+    amount: "21,300.00",
+  },
+];
+
+export const goodsReceiptsTotal = 24;
+
+export function getGoodsReceiptDetail(id) {
+  const row =
+    goodsReceiptRows.find((item) => item.id === String(id)) ||
+    goodsReceiptRows[0];
+
+  return {
+    ...row,
+    id: String(id || row.id),
+    note: "تتم مطابقة الكميات المستلمة مع بنود أمر الشراء قبل إصدار فاتورة الشراء.",
+    items: [
+      {
+        id: "i1",
+        name: "خادم بيانات مركزي",
+        orderedQty: 2,
+        receivedQty: 2,
+        unit: "وحدة",
+        status: "matched",
+      },
+      {
+        id: "i2",
+        name: "محول شبكة 48 منفذ",
+        orderedQty: 4,
+        receivedQty: row.status === "partial" ? 2 : 4,
+        unit: "وحدة",
+        status: row.status === "partial" ? "partial" : "matched",
+      },
+      {
+        id: "i3",
+        name: "كابلات ألياف بصرية",
+        orderedQty: 20,
+        receivedQty:
+          row.status === "mismatch" ? 18 : row.status === "pending" ? 0 : 20,
+        unit: "متر",
+        status:
+          row.status === "mismatch"
+            ? "mismatch"
+            : row.status === "pending"
+              ? "pending"
+              : "matched",
+      },
+    ],
+  };
+}
 
 /** بيانات تاب فاتورة الشراء */
 export const purchaseInvoiceDetail = {

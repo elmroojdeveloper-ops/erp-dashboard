@@ -1,4 +1,6 @@
-import React from 'react'
+import React from "react";
+import AddEntries from "../components/utils/Accounting/Entries/AddEntries";
+
 const page = () => {
   return <>
 <AddEntries/>

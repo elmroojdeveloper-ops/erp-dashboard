@@ -55,4 +55,10 @@ const BalancesContent = () => {
   )
 }
 
-export default Balances
+export default function Balances() {
+  return (
+    <Suspense fallback={null}>
+      <BalancesContent />
+    </Suspense>
+  );
+}

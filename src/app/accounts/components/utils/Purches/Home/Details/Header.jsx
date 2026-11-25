@@ -13,7 +13,7 @@ import { HiOutlineCalendar } from "react-icons/hi2";
 import { LuArrowLeftRight } from "react-icons/lu";
 import { statusLabels, statusStyles } from "../mock-data";
 
-const Header = ({ data }) => {
+const Header = ({ data, onConvert }) => {
   return (
     <section className="rounded-[14px] border border-[#E8EEF2] bg-white p-5 sm:p-6">
       <div className="flex flex-col gap-4 border-b border-[#E8EEF2] pb-4 lg:flex-row lg:items-start lg:justify-between">
@@ -72,6 +72,11 @@ const Header = ({ data }) => {
         <div className="flex flex-wrap items-center gap-2">
           <button
             type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onConvert?.();
+            }}
             className="inline-flex h-10 items-center gap-2 rounded-[10px] bg-primary px-4 text-sm font-semibold text-white transition hover:bg-primary-dark"
           >
             <LuArrowLeftRight className="size-4" />

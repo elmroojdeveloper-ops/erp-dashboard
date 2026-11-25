@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Convert from "../QuoteRequests/Convert";
 import { getPurchaseRequestDetail } from "./mock-data";
 import Header from "./Details/Header";
 import Tabs from "./Details/Tabs";
@@ -14,6 +15,7 @@ import ActivityTap from "./Details/ActivityTap";
 const Details = ({ id }) => {
   const data = useMemo(() => getPurchaseRequestDetail(id), [id]);
   const [activeTab, setActiveTab] = useState("details");
+  const [convertOpen, setConvertOpen] = useState(false);
 
   const renderTab = () => {
     switch (activeTab) {
@@ -36,9 +38,16 @@ const Details = ({ id }) => {
 
   return (
     <div className="flex w-full flex-col gap-4 pb-2 lg:gap-5">
-      <Header data={data} />
+      <Header data={data} onConvert={() => setConvertOpen(true)} />
       <Tabs activeTab={activeTab} onChange={setActiveTab} />
       {renderTab()}
+
+      <Convert
+        open={convertOpen}
+        onClose={() => setConvertOpen(false)}
+        prId={data.id}
+        data={data}
+      />
     </div>
   );
 };

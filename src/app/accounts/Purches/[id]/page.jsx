@@ -1,8 +1,21 @@
+import { Suspense } from "react";
 import Details from "../../components/utils/Purches/Home/Details";
 
-const page = async ({ params }) => {
+export const instant = false;
+
+async function PurchaseDetails({ params }) {
   const { id } = await params;
   return <Details id={decodeURIComponent(id)} />;
-};
+}
+
+const page = ({ params }) => (
+  <Suspense
+    fallback={
+      <div className="py-10 text-center text-sm text-muted">جاري التحميل...</div>
+    }
+  >
+    <PurchaseDetails params={params} />
+  </Suspense>
+);
 
 export default page;

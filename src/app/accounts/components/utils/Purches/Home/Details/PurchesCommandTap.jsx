@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import {
   FiAlertTriangle,
@@ -160,13 +161,13 @@ const PurchesCommandTap = () => {
 
                 <td className="px-4 py-4">
                   <div className="flex items-center justify-center gap-1">
-                    <button
-                      type="button"
+                    <Link
+                      href={`/accounts/Purches/orders/${encodeURIComponent(row.id)}`}
                       className="flex size-8 items-center justify-center rounded-lg text-[#64748B] transition hover:bg-surface hover:text-primary"
                       aria-label={`عرض ${row.number}`}
                     >
                       <FiEye className="size-4" />
-                    </button>
+                    </Link>
                     <button
                       type="button"
                       className="flex size-8 items-center justify-center rounded-lg text-[#64748B] transition hover:bg-surface hover:text-primary"
