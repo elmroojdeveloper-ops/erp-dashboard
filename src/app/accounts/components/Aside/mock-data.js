@@ -169,13 +169,13 @@ export const navItems = [
   {
     id: "add-supplier",
     label: "إضافة مورد جديد",
-    href: "/accounts/suppliers/new",
+    href: "/accounts/Supliers/AddSupplierPage",
     Icon: FiUserPlus,
   },
   {
     id: "suppliers-list",
     label: "قائمة الموردين",
-    href: "/accounts/suppliers",
+    href: "/accounts/Supliers",
     Icon: FiUsers,
   },
   {
@@ -187,7 +187,7 @@ export const navItems = [
   {
     id: "suppliers-settings",
     label: "الإعدادات",
-    href: "/accounts/suppliers/settings",
+    href: "/accounts/Supliers/settings",
     Icon: FiSettings,
   },
 ],
