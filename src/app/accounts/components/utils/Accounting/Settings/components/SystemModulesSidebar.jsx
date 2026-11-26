@@ -1,6 +1,6 @@
 "use client";
 
-import { FiCheck, FiLock } from "react-icons/fi";
+import { FiLock } from "react-icons/fi";
 import { moduleItems } from "../settingsConstants";
 import { Toggle } from "../SettingsUi";
 
@@ -11,41 +11,41 @@ export default function SystemModulesSidebar({
   onToggleModule,
 }) {
   return (
-    <aside className="order-first shrink-0 xl:w-[248px]">
-      <div className="rounded-2xl border border-[#E2E8F0] bg-white p-3 shadow-card">
-        <p className="mb-3 px-1 text-[12px] font-bold text-[#64748B]">
+    <aside className="order-first shrink-0 xl:w-[252px]">
+      <div className="rounded-2xl border border-[#E8EDF2] bg-white px-3 pb-3 pt-5 shadow-card">
+        <p className="mb-3 px-2 text-[11px] font-medium text-[#94A3B8]">
           أقسام النظام
         </p>
-        <ul className="space-y-1.5">
+
+        <ul className="space-y-2">
           {moduleItems.map((item) => {
             const Icon = item.Icon;
             const active = selectedModule === item.id;
             const selectable = item.configurable ?? item.toggleable;
-            const faded =
-              item.toggleable && !Boolean(moduleEnabled[item.id]);
-            const rowClass = `flex w-full items-center gap-2 rounded-xl px-2 py-2.5 transition ${
-              active
-                ? "bg-[#1B4D66] text-white shadow-sm"
-                : "border border-transparent hover:bg-[#F8FAFC]"
-            }`;
+            const faded = item.toggleable && !Boolean(moduleEnabled[item.id]);
 
             return (
               <li key={item.id}>
-                <div className={rowClass}>
+                <div
+                  className={`flex h-[47px] items-center gap-2.5 rounded-xl px-2.5 transition ${
+                    active ? "bg-primary" : "hover:bg-[#F8FAFC]"
+                  }`}
+                >
                   <span
-                    className={`flex size-9 shrink-0 items-center justify-center rounded-lg ${
+                    className={`flex size-8 shrink-0 items-center justify-center rounded-lg ${
                       active
                         ? "bg-white/15 text-white"
-                        : "bg-[#E8F3FA] text-primary"
+                        : "bg-[#E8F1F8] text-primary"
                     }`}
                   >
                     <Icon className="size-[17px]" />
                   </span>
+
                   <button
                     type="button"
                     onClick={() => selectable && setSelectedModule(item.id)}
                     disabled={!selectable}
-                    className="min-w-0 flex-1 truncate py-0.5 text-start text-[12.5px] font-bold disabled:cursor-default"
+                    className="min-w-0 flex-1 truncate text-start text-[13px] font-medium disabled:cursor-default"
                   >
                     <span
                       className={
@@ -59,14 +59,20 @@ export default function SystemModulesSidebar({
                       {item.label}
                     </span>
                   </button>
+
                   {item.coreLock && !item.toggleable ? (
-                    <FiLock
-                      className={`size-3.5 shrink-0 ${
-                        active ? "text-white/90" : "text-[#CBD5E1]"
-                      }`}
+                    <span
                       title="وحدة أساسية"
-                    />
+                      className={`flex size-6 shrink-0 items-center justify-center rounded-lg ${
+                        active
+                          ? "bg-white/20 text-white"
+                          : "bg-[#EEF3F8] text-[#A9B6C6]"
+                      }`}
+                    >
+                      <FiLock className="size-3.5" />
+                    </span>
                   ) : null}
+
                   {item.toggleable ? (
                     <Toggle
                       checked={Boolean(moduleEnabled[item.id])}
@@ -79,20 +85,6 @@ export default function SystemModulesSidebar({
             );
           })}
         </ul>
-
-        <div className="mt-4 border-t border-[#EEF2F6] pt-4">
-          <div className="flex items-start gap-2 px-1">
-            <FiCheck className="mt-0.5 size-4 shrink-0 text-primary" />
-            <div>
-              <p className="text-[12px] font-bold text-[#1E293B]">
-                حوكمة مسجلة
-              </p>
-              <p className="mt-1 text-[11px] leading-5 text-[#64748B]">
-                أي تعديل يُسجل في سجل الرقابة المالي لدعم التدقيق الداخلي
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
     </aside>
   );

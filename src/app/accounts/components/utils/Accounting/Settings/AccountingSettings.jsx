@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import AccountingSettingsHeader from "./components/AccountingSettingsHeader";
 import AccountingSettingsStickyBar from "./components/AccountingSettingsStickyBar";
 import ActivityTemplateBlock from "./components/ActivityTemplateBlock";
@@ -30,11 +29,13 @@ const AccountingSettings = () => {
     toggleModuleEnabled,
     renderModuleSettings,
     selectedMeta,
-    moduleSectionEnabled,
   } = settings;
 
+  const HeadingIcon = selectedMeta?.Icon;
+
   return (
-    <div dir="rtl" className="flex flex-col gap-5 pb-28">
+    <div dir="rtl" className="flex flex-col gap-6 pb-28">
+      {/* ============================ الهيدر ============================ */}
       <AccountingSettingsHeader
         hydrated={hydrated}
         savedAt={savedAt}
@@ -43,18 +44,9 @@ const AccountingSettings = () => {
         onSave={handleSave}
       />
 
-      <section className="rounded-2xl border border-[#FCD34D] bg-[#FFFBEB] p-5 shadow-card sm:p-6">
-        <ActivityTemplateBlock
-          activityTemplate={activityTemplate}
-          setActivityTemplate={setActivityTemplate}
-          setSavedAt={setSavedAt}
-          activityPreview={activityPresetPreview}
-          hydrated={hydrated}
-          onApply={handleApplyActivityTemplate}
-        />
-      </section>
-
+      {/* ====================== السايدبار + المحتوى ====================== */}
       <div className="flex flex-col gap-6 xl:flex-row xl:items-start">
+        {/* السايدبار (يمين) */}
         <SystemModulesSidebar
           selectedModule={selectedModule}
           setSelectedModule={setSelectedModule}
@@ -62,22 +54,40 @@ const AccountingSettings = () => {
           onToggleModule={toggleModuleEnabled}
         />
 
-        <div className="flex min-w-0 flex-1 flex-col gap-3">
-          {renderModuleSettings()}
-          {selectedMeta?.href &&
-          moduleSectionEnabled(selectedModule) &&
-          selectedModule !== "entries" ? (
-            <Link
-              href={selectedMeta.href}
-              className="inline-flex w-fit items-center gap-2 rounded-xl border border-[#BBD9EA] bg-[#E8F3FA] px-4 py-2 text-[12px] font-bold text-primary transition hover:bg-[#DCEEF8]"
-            >
-              فتح شاشة {selectedMeta.label} في النظام
-            </Link>
+        {/* العمود الرئيسي */}
+        <div className="flex min-w-0 flex-1 flex-col gap-6">
+          {/* كارت قالب النشاط */}
+          <section className="rounded-2xl border border-[#F0DDB8] bg-gradient-to-l from-[#FAEBD3] via-[#FBF3E4] to-[#FBF8F2] p-[22px] shadow-card">
+            <ActivityTemplateBlock
+              activityTemplate={activityTemplate}
+              setActivityTemplate={setActivityTemplate}
+              setSavedAt={setSavedAt}
+              activityPreview={activityPresetPreview}
+              hydrated={hydrated}
+              onApply={handleApplyActivityTemplate}
+            />
+          </section>
+
+          {/* عنوان القسم المختار */}
+          {selectedMeta ? (
+            <h2 className="flex items-center gap-2.5 text-[17px] font-bold leading-6 text-primary">
+              {HeadingIcon ? <HeadingIcon className="size-[18px]" /> : null}
+              إعدادات: {selectedMeta.label}
+            </h2>
           ) : null}
+
+          {/* كروت القسم المختار */}
+          <div className="-mt-2 flex flex-col gap-[17px]">
+            {renderModuleSettings()}
+          </div>
         </div>
       </div>
 
-      <AccountingSettingsStickyBar onReset={handleResetDefaults} onSave={handleSave} />
+      {/* ============================ الشريط السفلي ============================ */}
+      <AccountingSettingsStickyBar
+        onReset={handleResetDefaults}
+        onSave={handleSave}
+      />
 
       <ImportSettingsModal
         open={showImportModal}

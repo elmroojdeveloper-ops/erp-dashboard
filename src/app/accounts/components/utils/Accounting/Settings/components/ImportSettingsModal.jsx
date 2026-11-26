@@ -15,7 +15,7 @@ export default function ImportSettingsModal({ open, onClose, onSelectPreset }) {
       <div className="w-full max-w-lg rounded-2xl border border-[#E2E8F0] bg-white p-5 shadow-card">
         <h3
           id="import-modal-title"
-          className="text-lg font-bold text-[#0F172A]"
+          className="text-start text-lg font-bold text-[#0F172A]"
         >
           استيراد إعدادات من قالب جاهز
         </h3>

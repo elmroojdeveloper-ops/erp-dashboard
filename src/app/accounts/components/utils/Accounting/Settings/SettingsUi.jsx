@@ -55,9 +55,8 @@ export const CardShell = ({
 }) => (
   <section className="rounded-2xl border border-[#E2E8F0] bg-white p-5 shadow-card sm:p-6">
     <div className="mb-5 flex items-start justify-between gap-3">
-      {chip ? <Chip tone={chipTone}>{chip}</Chip> : <span />}
-      <div className="flex flex-1 items-start justify-end gap-3 text-end">
-        <div>
+      <div className="flex min-w-0 flex-1 items-start gap-3">
+        <div className="min-w-0 flex-1 text-start">
           <h2 className="text-[17px] font-bold text-[#0F172A]">{title}</h2>
           {desc ? (
             <p className="mt-1 max-w-xl text-[12px] leading-6 text-[#64748B]">
@@ -73,6 +72,7 @@ export const CardShell = ({
           </span>
         ) : null}
       </div>
+      {chip ? <Chip tone={chipTone}>{chip}</Chip> : null}
     </div>
     {children}
   </section>
@@ -110,6 +110,17 @@ export const CustomFieldsCard = ({
             key={field.id}
             className="flex items-center justify-between gap-3 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] px-4 py-3"
           >
+            <div className="flex min-w-0 flex-1 items-center gap-3">
+              <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-white text-primary">
+                <FiType className="size-4" />
+              </span>
+              <p className="truncate text-start text-sm font-bold text-[#1E293B]">
+                {field.label}
+              </p>
+            </div>
+            <span className="inline-flex shrink-0 rounded-full border border-[#BBD9EA] bg-[#E8F3FA] px-2.5 py-0.5 text-[10px] font-bold text-primary">
+              {fieldTypeLabel(field.type)}
+            </span>
             <button
               type="button"
               onClick={() => {
@@ -121,17 +132,6 @@ export const CustomFieldsCard = ({
             >
               <FiTrash2 className="size-4" />
             </button>
-            <span className="inline-flex shrink-0 rounded-full border border-[#BBD9EA] bg-[#E8F3FA] px-2.5 py-0.5 text-[10px] font-bold text-primary">
-              {fieldTypeLabel(field.type)}
-            </span>
-            <div className="flex min-w-0 flex-1 items-center justify-end gap-3">
-              <p className="truncate text-sm font-bold text-[#1E293B]">
-                {field.label}
-              </p>
-              <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-white text-primary">
-                <FiType className="size-4" />
-              </span>
-            </div>
           </li>
         ))}
       </ul>
@@ -199,7 +199,7 @@ export const CustomFieldsCard = ({
   );
 };
 export const ModuleHeading = ({ title }) => (
-  <div className="rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] px-4 py-3">
+  <div className="rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] px-4 py-3 text-start">
     <h2 className="text-[15px] font-bold text-[#0F172A]">{title}</h2>
   </div>
 );
