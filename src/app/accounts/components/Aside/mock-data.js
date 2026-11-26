@@ -186,7 +186,7 @@ export const navItems = [
       {
         id: "suppliers-settings",
         label: "الإعدادات",
-        href: "/accounts/Supliers/settings",
+        href: "/accounts/Supliers/Settings",
         Icon: FiSettings,
       },
     ],
