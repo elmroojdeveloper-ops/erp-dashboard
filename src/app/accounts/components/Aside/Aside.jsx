@@ -125,7 +125,7 @@ export function Aside({ mobileOpen = false, onClose }) {
                 </button>
 
                 {!compact && isOpen && (
-                  <div className="relative me-12 mt-1 flex flex-col gap-1.5 border-r border-[#cbd5e1] pe-4 ps-2">
+                  <div className="relative me-5 mt-1 flex flex-col gap-1.5 border-r border-[#cbd5e1] pe-4 ps-1">
                     {item.children.map((child) => {
                       const ChildIcon = child.Icon;
                       const childActive = isRouteActive(pathname, child.href);
@@ -142,7 +142,7 @@ export function Aside({ mobileOpen = false, onClose }) {
                           {/* دائرة متمركزة في منتصف الخط الرأسي */}
                           <span
                             aria-hidden="true"
-                            className={` size-2 shrink-0 rounded-full absolute -right-3 ring-1 ring-white ${
+                            className={`absolute -right-[9px] size-2 shrink-0 rounded-full ring-1 ring-white ${
                               childActive ? "bg-primary" : "bg-[#94a3b8]"
                             }`}
                           />
