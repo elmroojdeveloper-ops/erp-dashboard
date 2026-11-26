@@ -15,9 +15,9 @@ const idleClass = "font-medium text-muted hover:bg-surface/70";
 const groupActiveClass = "bg-[#E8F7FB] font-semibold text-primary";
 const groupIdleClass = "font-medium text-muted hover:bg-surface/70";
 
-// 3 - اكتيف الابن اللي جوة الجروب
+// 3 - اكتيف الابن اللي جوة الجروب (بدون hover أو خلفية مزعجة)
 const childActiveClass = "font-semibold text-primary";
-const childIdleClass = "font-medium text-muted hover:bg-surface/70";
+const childIdleClass = "font-medium text-muted";
 
 export function Aside({ mobileOpen = false, onClose }) {
   const pathname = usePathname();
@@ -34,6 +34,7 @@ export function Aside({ mobileOpen = false, onClose }) {
   }, []);
 
   useEffect(() => {
+    if (!pathname) return;
     const next = {};
     navItems.forEach((item) => {
       if (item.children?.length && isGroupActive(pathname, item)) {
@@ -100,7 +101,7 @@ export function Aside({ mobileOpen = false, onClose }) {
 
           if (hasChildren) {
             return (
-              <div key={item.id} className="flex flex-col gap-0.5">
+              <div key={item.id} className="flex flex-col gap-1">
                 <button
                   type="button"
                   onClick={() => toggleGroup(item.id)}
@@ -124,7 +125,7 @@ export function Aside({ mobileOpen = false, onClose }) {
                 </button>
 
                 {!compact && isOpen && (
-                  <div className="flex flex-col gap-0.5 pe-2 ps-7">
+                  <div className="relative me-12 mt-1 flex flex-col gap-1.5 border-r border-[#cbd5e1] pe-4 ps-2">
                     {item.children.map((child) => {
                       const ChildIcon = child.Icon;
                       const childActive = isRouteActive(pathname, child.href);
@@ -134,15 +135,22 @@ export function Aside({ mobileOpen = false, onClose }) {
                           key={child.id}
                           href={child.href}
                           onClick={onClose}
-                          className={`flex items-center gap-3 rounded-[10px] px-3 py-2.5 transition sm:px-1 ${
+                          className={`relative flex items-center gap-2.5 py-2 text-start transition ${
                             childActive ? childActiveClass : childIdleClass
                           }`}
                         >
-                          <ChildIcon className="size-5 shrink-0" />
-                          <span className="min-w-0 flex-1 text-start text-sm sm:text-base">
+                          {/* دائرة متمركزة في منتصف الخط الرأسي */}
+                          <span
+                            aria-hidden="true"
+                            className={` size-2 shrink-0 rounded-full absolute -right-3 ring-1 ring-white ${
+                              childActive ? "bg-primary" : "bg-[#94a3b8]"
+                            }`}
+                          />
+
+                          <ChildIcon className="size-4 shrink-0" />
+                          <span className="min-w-0 flex-1 text-start text-[13px] sm:text-sm">
                             {child.label}
                           </span>
-                         
                         </Link>
                       );
                     })}

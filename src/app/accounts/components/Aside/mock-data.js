@@ -159,38 +159,37 @@ export const navItems = [
     Icon: FiUsers,
     children: [],
   },
-  
-{
+  {
     id: "suppliers",
     label: "الموردين",
     href: "#",
     Icon: HiOutlineTruck,
-   children: [
-  {
-    id: "add-supplier",
-    label: "إضافة مورد جديد",
-    href: "/accounts/Supliers/AddSupplierPage",
-    Icon: FiUserPlus,
-  },
-  {
-    id: "suppliers-list",
-    label: "قائمة الموردين",
-    href: "/accounts/Supliers",
-    Icon: FiUsers,
-  },
-  {
-    id: "suppliers-reports",
-    label: "التقارير",
-    href: "/accounts/Supliers/SuppliersReports",
-    Icon: FiBarChart2, 
-  },
-  {
-    id: "suppliers-settings",
-    label: "الإعدادات",
-    href: "/accounts/Supliers/settings",
-    Icon: FiSettings,
-  },
-],
+    children: [
+      {
+        id: "suppliers-list",
+        label: "قائمة الموردين",
+        href: "/accounts/Supliers",
+        Icon: FiUsers,
+      },
+      {
+        id: "add-supplier",
+        label: "إضافة مورد جديد",
+        href: "/accounts/Supliers/AddSupplierPage",
+        Icon: FiUserPlus,
+      },
+      {
+        id: "suppliers-reports",
+        label: "التقارير",
+        href: "/accounts/Supliers/SuppliersReports",
+        Icon: FiBarChart2,
+      },
+      {
+        id: "suppliers-settings",
+        label: "الإعدادات",
+        href: "/accounts/Supliers/settings",
+        Icon: FiSettings,
+      },
+    ],
   },
   {
     id: "reports",
@@ -208,46 +207,16 @@ export const navItems = [
   },
 ];
 
-const PURCHASE_REQUEST_RESERVED = new Set([
-  "Add",
-  "quote-requests",
-  "vendor-quotes",
-  "orders",
-  "receipts",
-  "invoices",
-  "settings",
-]);
+function normalizePath(path = "") {
+  if (!path || path === "#") return "";
+  return path.split("?")[0].replace(/\/+$/, "").toLowerCase();
+}
 
 export function isRouteActive(pathname, href) {
-  if (!href || href === "#") return false;
-  if (href === "/accounts") return pathname === "/accounts";
-  if (href === "/accounts/Entries") {
-    return (
-      pathname === href ||
-      pathname.startsWith(`${href}/`) ||
-      pathname.startsWith("/accounts/AddEntries")
-    );
-  }
-  if (href === "/accounts/FixedAsset") {
-    return pathname === href || pathname.startsWith(`${href}/`);
-  }
-  if (href === "/accounts/Invoice") {
-    return pathname === href || pathname.startsWith(`${href}/`);
-  }
-  if (href === "/accounts/PaymentReview") {
-    return pathname === href || pathname.startsWith(`${href}/`);
-  }
-  if (href === "/accounts/DiscountNotifications") {
-    return pathname === href || pathname.startsWith(`${href}/`);
-  }
-  if (href === "/accounts/Purches") {
-    if (pathname === "/accounts/Purches") return true;
-    if (pathname.startsWith("/accounts/Purches/Add")) return true;
-    const rest = pathname.replace("/accounts/Purches/", "");
-    if (!rest || rest.includes("/")) return false;
-    return !PURCHASE_REQUEST_RESERVED.has(rest);
-  }
-  return pathname === href || pathname.startsWith(`${href}/`);
+  const current = normalizePath(pathname);
+  const target = normalizePath(href);
+  if (!current || !target) return false;
+  return current === target;
 }
 
 export function isGroupActive(pathname, item) {

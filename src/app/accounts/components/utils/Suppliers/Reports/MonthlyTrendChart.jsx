@@ -136,7 +136,6 @@ const MonthlyTrendChart = ({
   onPeriodModeChange,
 }) => {
   const [periodMode, setPeriodMode] = useState("monthly"); // "monthly" | "quarterly"
-  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const items = useMemo(() => {
     return periodMode === "monthly" ? monthlySeries : quarterlySeries;
@@ -144,7 +143,6 @@ const MonthlyTrendChart = ({
 
   const handleSwitchMode = (nextMode) => {
     setPeriodMode(nextMode);
-    setHoveredIndex(null);
     onPeriodModeChange?.(nextMode);
   };
 
@@ -163,14 +161,16 @@ const MonthlyTrendChart = ({
     return items.map((item, index) => {
       // Reverse X position so index 0 appears on the far right (RTL)
       const visualSlotIndex = items.length - 1 - index;
-      const slotCenterX =
-        visualSlotIndex * slotWidth + slotWidth / 2;
+      const slotCenterX = visualSlotIndex * slotWidth + slotWidth / 2;
 
       const pairTotalWidth = barWidth * 2 + barGap;
       const receivedX = slotCenterX - pairTotalWidth / 2;
       const paidX = receivedX + barWidth + barGap;
 
-      const clampedReceived = Math.max(12, Math.min(100, Number(item.received) || 0));
+      const clampedReceived = Math.max(
+        12,
+        Math.min(100, Number(item.received) || 0)
+      );
       const clampedPaid = Math.max(10, Math.min(100, Number(item.paid) || 0));
 
       const receivedHeight = (clampedReceived / 100) * usableHeight;
@@ -217,13 +217,10 @@ const MonthlyTrendChart = ({
     return d;
   }, [computedBars]);
 
-  const hoveredBar =
-    hoveredIndex !== null ? computedBars[hoveredIndex] || null : null;
-
   return (
     <section
       dir="rtl"
-      className="relative lg:col-span-2 rounded-[22px] border border-[#e6ecf2] bg-white p-6 text-[#1e293b]"
+      className="relative rounded-[22px] border border-[#e6ecf2] bg-white p-6 text-[#1e293b] lg:col-span-2"
       style={{
         fontFamily: "'Cairo', 'Tajawal', system-ui, -apple-system, sans-serif",
       }}
@@ -282,21 +279,6 @@ const MonthlyTrendChart = ({
         </div>
       </div>
 
-      {/* Hover Tooltip */}
-      {hoveredBar && (
-        <div className="mb-2 flex flex-wrap items-center justify-between gap-3 rounded-[12px] border border-[#e2e8f0] bg-[#f8fafc] px-4 py-2 text-[11.5px]">
-          <span className="font-black text-[#086382]">{hoveredBar.label}</span>
-          <div className="flex flex-wrap items-center gap-4 tabular-nums">
-            <span className="font-bold text-[#157396]">
-              الفواتير المستلمة: {hoveredBar.receivedAmount}
-            </span>
-            <span className="font-bold text-[#475569]">
-              المدفوعات المسددة: {hoveredBar.paidAmount}
-            </span>
-          </div>
-        </div>
-      )}
-
       {/* SVG Chart */}
       <div className="w-full overflow-x-auto">
         <svg
@@ -347,12 +329,7 @@ const MonthlyTrendChart = ({
               : "#94a3b8";
 
             return (
-              <g
-                key={bar.id}
-                onMouseEnter={() => setHoveredIndex(bar.index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                className="cursor-pointer transition-opacity"
-              >
+              <g key={bar.id} className="transition-opacity">
                 {/* Received Invoice Bar */}
                 <path
                   d={`M ${bar.receivedX} ${baselineY} L ${bar.receivedX} ${
