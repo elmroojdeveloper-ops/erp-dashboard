@@ -34,7 +34,7 @@ const AccountingSettings = () => {
   const HeadingIcon = selectedMeta?.Icon;
 
   return (
-    <div dir="rtl" className="flex flex-col gap-6 pb-28">
+    <div dir="rtl" className="flex flex-col gap-6 pb-4">
       {/* ============================ الهيدر ============================ */}
       <AccountingSettingsHeader
         hydrated={hydrated}
@@ -80,14 +80,13 @@ const AccountingSettings = () => {
           <div className="-mt-2 flex flex-col gap-[17px]">
             {renderModuleSettings()}
           </div>
+
+          <AccountingSettingsStickyBar
+            onReset={handleResetDefaults}
+            onSave={handleSave}
+          />
         </div>
       </div>
-
-      {/* ============================ الشريط السفلي ============================ */}
-      <AccountingSettingsStickyBar
-        onReset={handleResetDefaults}
-        onSave={handleSave}
-      />
 
       <ImportSettingsModal
         open={showImportModal}

@@ -7,9 +7,15 @@ const cairo = Cairo({
   weight: ["400", "500", "600", "700", "800"],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://erp.elmrooj.com";
+
 export const metadata = {
+  metadataBase: new URL(siteUrl),
   title: "ERP System | الحسابات",
   description: "نظام إدارة الموارد المؤسسية",
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function RootLayout({ children }) {

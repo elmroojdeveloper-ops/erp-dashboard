@@ -1,8 +1,10 @@
 import {
+  FiBarChart2,
   FiFile,
   FiFileText,
   FiSettings,
   FiShoppingCart,
+  FiUserPlus,
   FiUsers,
 } from "react-icons/fi";
 import {
@@ -73,6 +75,12 @@ export const navItems = [
         label: "التقارير المالية",
         href: "/accounts/Reports",
         Icon: MdOutlineAssessment,
+      },
+      {
+        id: "comprehensive-reports",
+        label: "التقارير الشاملة",
+        href: "/accounts/comprehensive-reports",
+        Icon: FiFileText,
       },
       {
         id: "audits",
@@ -151,12 +159,38 @@ export const navItems = [
     Icon: FiUsers,
     children: [],
   },
-  {
+  
+{
     id: "suppliers",
     label: "الموردين",
     href: "#",
     Icon: HiOutlineTruck,
-    children: [],
+   children: [
+  {
+    id: "add-supplier",
+    label: "إضافة مورد جديد",
+    href: "/accounts/suppliers/new",
+    Icon: FiUserPlus,
+  },
+  {
+    id: "suppliers-list",
+    label: "قائمة الموردين",
+    href: "/accounts/suppliers",
+    Icon: FiUsers,
+  },
+  {
+    id: "suppliers-reports",
+    label: "التقارير",
+    href: "/accounts/Supliers/SuppliersReports",
+    Icon: FiBarChart2, 
+  },
+  {
+    id: "suppliers-settings",
+    label: "الإعدادات",
+    href: "/accounts/suppliers/settings",
+    Icon: FiSettings,
+  },
+],
   },
   {
     id: "reports",
